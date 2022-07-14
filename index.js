@@ -47,11 +47,12 @@ function mainRender(){
             </div>
             <img class="post-img" src="" alt="Vincent van Gogh Post">
             <div class="post-icons">
-                <img class="heart" src="./images/icon-heart.png" alt="Heart Icon">
+                <img class="heart-like" src="./images/icon-heart.png" alt="Heart Icon">
+                <img class="heart-filled remove-like" src="./images/icon-heart-filled.png" alt="Heart Icon Filled">
                 <img src="./images/icon-comment.png" alt="Comment Icon">
                 <img src="./images/icon-dm.png" alt="Personal Message Icon">
             </div>
-            <p class="bold-text likes-number"><span class="likesEl"></span>,492 likes</p>
+            <p class="bold-text likes-number"><span class="likesEl"></span>,<span class="like-increased">492</span> likes</p>
             <p class="comment-section"><span class="bold-text comments username"></span> <span class="comment"></span></p>
             <div class="next-space"></div>
         </section>`
@@ -59,21 +60,16 @@ function mainRender(){
     mainEl.innerHTML = main;
 }
 
-mainRender();
-
-
-const nameEl = document.querySelectorAll(".name");
-const locationEl = document.querySelectorAll(".location");
-const postEl = document.querySelectorAll(".post-img");
-const likesEl = document.querySelectorAll(".likesEl");
-const usernameEl = document.querySelectorAll(".username");
-const commentEl = document.querySelectorAll(".comment");
-const avatarEl = document.querySelectorAll(".avatar");
-
 function renderPost(){
+    const nameEl = document.querySelectorAll(".name");
+    const locationEl = document.querySelectorAll(".location");
+    const postEl = document.querySelectorAll(".post-img");
+    const likesEl = document.querySelectorAll(".likesEl");
+    const usernameEl = document.querySelectorAll(".username");
+    const commentEl = document.querySelectorAll(".comment");
+    const avatarEl = document.querySelectorAll(".avatar");
 
-
-    for(let i = 0 ; i <= posts.length ; i++){
+    for(let i = 0 ; i < posts.length ; i++){
         nameEl[i].textContent = posts[i].name;
         locationEl[i].textContent = posts[i].location;
         avatarEl[i].src = posts[i].avatar;
@@ -84,9 +80,74 @@ function renderPost(){
     }
 };
 
-
+mainRender();
 renderPost();
 
+// like button 
 
+function likedPhoto(empty,filled){
+    empty.classList.add("remove-like");
+    filled.classList.remove("remove-like");
+}
+
+function likeIncreaseFn(liked,likedEl){
+    liked = parseInt(likedEl.textContent);
+    liked++;
+    likedEl.textContent = liked.toString();
+}
+
+function likeDecreaseFn(liked,likedEl){
+    liked = parseInt(likedEl.textContent);
+    liked--;
+    likedEl.textContent = liked.toString();
+}
+
+function likePictureFn(personPost,i,personLiked,personUnliked,pLikedEl) {
+    personPost = document.querySelectorAll(".post-img")[i];
+    personLiked = document.querySelectorAll(".heart-filled")[i];
+    personUnliked = document.querySelectorAll(".heart-like")[i];
+    pLikedEl = document.querySelectorAll(".like-increased")[i];
+    let liked;
+    let isLiked = false;
+    
+    personPost.addEventListener("dblclick", () => {
+        if(isLiked){
+            likedPhoto(personLiked,personUnliked);
+            likeDecreaseFn(liked,pLikedEl);
+            isLiked = false;
+        } else {
+            likedPhoto(personUnliked,personLiked);
+            likeIncreaseFn(liked,pLikedEl);
+            isLiked = true;
+        }
+    })
+    
+    personUnliked.addEventListener("click", () => {
+        likedPhoto(personUnliked,personLiked);
+        likeIncreaseFn(liked,pLikedEl);
+    })
+    
+    personLiked.addEventListener("click", () => {
+        likedPhoto(personLiked,personUnliked);
+        likeDecreaseFn(liked,pLikedEl);
+    })
+}
+
+
+// vincent van Gogh 
+
+let vincentPost, i = 0 , vincentLiked, vincentUnliked, vLikedEl;
+likePictureFn(vincentPost,i,vincentLiked,vincentUnliked,vLikedEl)
+
+
+// Gustave Courbet
+
+let gustavePost, g = 1 , gustaveLiked, gustaveUnliked, gLikedEl;
+likePictureFn(gustavePost,g,gustaveLiked,gustaveUnliked,gLikedEl)
+
+// Joseph Ducreux
+
+let josephPost, j = 2 , josephLiked, josephUnliked, jLikedEl;
+likePictureFn(josephPost,j,josephLiked,josephUnliked,jLikedEl)
 
 

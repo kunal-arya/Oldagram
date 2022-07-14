@@ -10,10 +10,15 @@ html, body {
     align-items: center;
     justify-content: center;
     background-color: #d21b1b;
+    height: 100vh;
 }
 
 img{
     max-width: 100%;
+}
+
+.remove-like {
+    display: none;
 }
 
 .container {
