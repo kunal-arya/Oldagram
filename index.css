@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -5,6 +9,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #d21b1b;
 }
 
 img{
@@ -12,11 +17,60 @@ img{
 }
 
 .container {
-    max-width: 400px;
+    width: 400px;
+    height: 95vh;
     border: 4px solid #5d5d5d;
     border-radius: 20px;
     margin: auto;
+    background-color: #fff;
 }
+
+.main-section {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 80vh;
+
+}
+
+::-webkit-scrollbar-track
+{
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #D62929;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* To add support to FireFox browser because ::-webkit-scrollbar don't work in firefox */
+
+@supports (scrollbar-color: red blue){
+    * {
+        scrollbar-color:#D62929 rgba(0,0,0,0.3);
+        scrollbar-width: thin;
+    }
+}
+
+
+.post {
+    scroll-snap-align: start;
+}
+
+.next-space {
+    height: 2em;
+    background-color: #EDEDED;
+}
+
+
 
 /* header */
 
@@ -65,10 +119,12 @@ img{
     width: 20px;
 }
 
-.likes-number,
-.comments {
+.likes-number {
     padding: 0;
     padding-left: 0.5em;
     margin: 0;
 }
 
+.comment-section {
+    padding: 0.5em;
+}
