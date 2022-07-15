@@ -60,29 +60,6 @@ function mainRender(){
     mainEl.innerHTML = main;
 }
 
-function renderPost(){
-    const nameEl = document.querySelectorAll(".name");
-    const locationEl = document.querySelectorAll(".location");
-    const postEl = document.querySelectorAll(".post-img");
-    const likesEl = document.querySelectorAll(".likesEl");
-    const usernameEl = document.querySelectorAll(".username");
-    const commentEl = document.querySelectorAll(".comment");
-    const avatarEl = document.querySelectorAll(".avatar");
-
-    for(let i = 0 ; i < posts.length ; i++){
-        nameEl[i].textContent = posts[i].name;
-        locationEl[i].textContent = posts[i].location;
-        avatarEl[i].src = posts[i].avatar;
-        postEl[i].src = posts[i].post;
-        likesEl[i].textContent = posts[i].likes;
-        commentEl[i].textContent = posts[i].comment;
-        usernameEl[i].textContent = posts[i].username;
-    }
-};
-
-mainRender();
-renderPost();
-
 // like button 
 
 function likedPhoto(empty,filled){
@@ -102,15 +79,15 @@ function likeDecreaseFn(liked,likedEl){
     likedEl.textContent = liked.toString();
 }
 
-function likePictureFn(personPost,i,personLiked,personUnliked,pLikedEl) {
-    personPost = document.querySelectorAll(".post-img")[i];
-    personLiked = document.querySelectorAll(".heart-filled")[i];
-    personUnliked = document.querySelectorAll(".heart-like")[i];
-    pLikedEl = document.querySelectorAll(".like-increased")[i];
+function likePictureFn(i) {
+    const personPost = document.querySelectorAll(".post-img")[i];
+    const personLiked = document.querySelectorAll(".heart-filled")[i];
+    const personUnliked = document.querySelectorAll(".heart-like")[i];
+    const pLikedEl = document.querySelectorAll(".like-increased")[i];
     let liked;
     let isLiked = false;
     
-    personPost.addEventListener("dblclick", () => {
+    personPost.addEventListener("click", () => {
         if(isLiked){
             likedPhoto(personLiked,personUnliked);
             likeDecreaseFn(liked,pLikedEl);
@@ -133,21 +110,28 @@ function likePictureFn(personPost,i,personLiked,personUnliked,pLikedEl) {
     })
 }
 
+function renderPost(){
+    const nameEl = document.querySelectorAll(".name");
+    const locationEl = document.querySelectorAll(".location");
+    const postEl = document.querySelectorAll(".post-img");
+    const likesEl = document.querySelectorAll(".likesEl");
+    const usernameEl = document.querySelectorAll(".username");
+    const commentEl = document.querySelectorAll(".comment");
+    const avatarEl = document.querySelectorAll(".avatar");
 
-// vincent van Gogh 
+    for(let i = 0 ; i < posts.length ; i++){
+        nameEl[i].textContent = posts[i].name;
+        locationEl[i].textContent = posts[i].location;
+        avatarEl[i].src = posts[i].avatar;
+        postEl[i].src = posts[i].post;
+        likesEl[i].textContent = posts[i].likes;
+        commentEl[i].textContent = posts[i].comment;
+        usernameEl[i].textContent = posts[i].username;
+        likePictureFn(i)
+    }
+};
 
-let vincentPost, i = 0 , vincentLiked, vincentUnliked, vLikedEl;
-likePictureFn(vincentPost,i,vincentLiked,vincentUnliked,vLikedEl)
-
-
-// Gustave Courbet
-
-let gustavePost, g = 1 , gustaveLiked, gustaveUnliked, gLikedEl;
-likePictureFn(gustavePost,g,gustaveLiked,gustaveUnliked,gLikedEl)
-
-// Joseph Ducreux
-
-let josephPost, j = 2 , josephLiked, josephUnliked, jLikedEl;
-likePictureFn(josephPost,j,josephLiked,josephUnliked,jLikedEl)
+mainRender();
+renderPost();
 
 
